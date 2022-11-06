@@ -1,0 +1,17 @@
+{
+    "name": "Ape #1",
+    "description": "FunnyApes is a 5 piece collection of funny apes.",
+    "image": "ipfs://QmZCsuvbghDKymp5Pe5SwxEqVXP4qb51CWXKr2k1UGV1uf/1.png",
+    "edition": 1,
+    "artist": "Ahmad",
+    "attributes": [
+        {
+            "trait_type": "color",
+            "value": "BROWN"
+        },
+        {
+            "trait_type": "ears",
+            "value": "SMALL"
+        }
+    ]
+}
