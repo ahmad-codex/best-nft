@@ -65,7 +65,7 @@ contract BestNFT is ERC721, ContextMixin, NativeMetaTransaction, ReentrancyGuard
                 tokenMinted = true;
             }
         } while (!tokenMinted);
-        emit NFTMinting(msg.sender, recipient, newItemId);
+        emit NFTMinting(_msgSender(), recipient, newItemId);
         return newItemId;
     }
 
@@ -88,7 +88,7 @@ contract BestNFT is ERC721, ContextMixin, NativeMetaTransaction, ReentrancyGuard
                     _safeMint(recipient, newItemId);
                     tokensMinted++;
                     tokenMinted = true;
-                    emit NFTMinting(msg.sender, recipient, newItemId);
+                    emit NFTMinting(_msgSender(), recipient, newItemId);
                 } 
             } while (!tokenMinted);
             tokensMintedCount++;
@@ -113,13 +113,13 @@ contract BestNFT is ERC721, ContextMixin, NativeMetaTransaction, ReentrancyGuard
 
     function setBaseURI(string memory newBaseURI) public onlyOwner
     {
-        emit ChangeBaseURI(msg.sender, baseURI_, newBaseURI);
+        emit ChangeBaseURI(_msgSender(), baseURI_, newBaseURI);
         baseURI_ = newBaseURI;
     }
 
     function setContractURI(string memory newContractURI) public onlyOwner
     {
-        emit ChangeContractURI(msg.sender, contractURI_, newContractURI);
+        emit ChangeContractURI(_msgSender(), contractURI_, newContractURI);
         contractURI_ = newContractURI;
     }
 
@@ -230,7 +230,7 @@ contract BestNFT is ERC721, ContextMixin, NativeMetaTransaction, ReentrancyGuard
         require((!isTokenIdReserved(tokenId)), "This Token Id is Already Reserved" );
         ReservedTokensIds.push(ReservedTokenId(tokenId, false, false));
         reservedNFTsCount++;
-        emit RegisterReservedTokenId(msg.sender, tokenId);
+        emit RegisterReservedTokenId(_msgSender(), tokenId);
     }
     
     function registerReservedTokenIds(uint256[] memory tokenIds) public onlyOwner
@@ -258,7 +258,7 @@ contract BestNFT is ERC721, ContextMixin, NativeMetaTransaction, ReentrancyGuard
         }
         ReservedTokensIds[index].isDeleted = true;
         reservedNFTsCount--;
-        emit UnRegisterReservedTokenId(msg.sender, tokenId);
+        emit UnRegisterReservedTokenId(_msgSender(), tokenId);
     }
     
     function mintReservedToken(address recipient, uint256 tokenId) public onlyOwner returns(uint256)
@@ -270,7 +270,7 @@ contract BestNFT is ERC721, ContextMixin, NativeMetaTransaction, ReentrancyGuard
         
         //Minting the token
         _safeMint(recipient, tokenId);
-        emit NFTMinting(msg.sender, recipient, tokenId);
+        emit NFTMinting(_msgSender(), recipient, tokenId);
         
         //Updating the reserved token attribute
         uint intCounter = 0;
@@ -307,7 +307,7 @@ contract BestNFT is ERC721, ContextMixin, NativeMetaTransaction, ReentrancyGuard
             if (!_exists(tokenIds[intCounter]) && isTokenIdReserved(tokenIds[intCounter]))
             {
                 _safeMint(recipient, tokenIds[intCounter]);
-                emit NFTMinting(msg.sender, recipient, tokenIds[intCounter]);
+                emit NFTMinting(_msgSender(), recipient, tokenIds[intCounter]);
                 reservedNFTsMintedCount++;
                 tokensMinted++;
                 
@@ -339,7 +339,7 @@ contract BestNFT is ERC721, ContextMixin, NativeMetaTransaction, ReentrancyGuard
 
         for (uint intCounter = 0; intCounter < tokenIDs.length; intCounter++)
         {
-            transferFrom(msg.sender, recipient, tokenIDs[intCounter]);
+            transferFrom(_msgSender(), recipient, tokenIDs[intCounter]);
         }
     }
 
