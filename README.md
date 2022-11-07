@@ -7,6 +7,7 @@ NFT smart contract with best practices and custom features:
 
 ## 🎨 Features
 * Implement basic access control.
+* Support multi NFT transfer in single transaction.
 * Support blacklisting.
 * Support token reservation.
 * Support polygon transactions in OpenSea.
